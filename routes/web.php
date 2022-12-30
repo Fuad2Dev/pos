@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\initializerController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['initialized'])->group(function () {
     Route::get('/', [AuthenticatedSessionController::class, 'create']);
+
+    // TODO: should have guest route
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
+
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
 });
 
 Route::middleware(['uninitialized'])->name('initialize')->group(function () {
@@ -28,6 +35,13 @@ Route::middleware(['uninitialized'])->name('initialize')->group(function () {
     });
 
     Route::post('/initialize', initializerController::class);
+});
+
+Route::middleware(['auth', 'initialized'])->group(function () {
+    Route::get('product/import', [ProductController::class, 'createImport'])->name('product.create.import');
+    Route::post('product/import', [ProductController::class, 'storeImport'])->name('product.store.import');
+    Route::get('product/import/template', [ProductController::class, 'template'])->name('product.import.template');
+    Route::resource('product', ProductController::class);
 });
 
 
