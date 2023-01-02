@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Config;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,12 +20,14 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
-            'email' => 'test@example.com',
-            'isAdmin' => true
+            'email' => 'admin@admin.com',
+            'isAdmin' => true,
+            'password' => Hash::make('123456789'),
         ]);
 
         Config::create([
-            'name' => 'Fuad\'s Collections'
+            'name' => 'Fuad\'s Collections',
+            'logo' => 'logo/VyMot8f2R36U01eEb3hMx7170U00SPGmLJDMTrEK.jpg'
         ]);
     }
 }
