@@ -4,7 +4,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <p>Add Product</p>
-            <x-link class="bg-red-500" :route="route('product.show', $product)">cancel</x-link>
+            <x-link class="text-white bg-red-500" :route="route('product.show', $product)">cancel</x-link>
         </div>
     </x-slot>
 
@@ -47,7 +47,7 @@
 
             <div class="flex justify-end">
                 <x-primary-button class="ml-4">
-                    {{ __('Add Product') }}
+                    {{ __('Update Product') }}
                 </x-primary-button>
             </div>
         </form>

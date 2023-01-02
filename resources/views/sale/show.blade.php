@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-end">
-            <x-link class="text-white bg-indigo-500" :route="route('sale.product.add', $sale)">Add Product</x-link>
+            <x-link class="text-white bg-indigo-500" :route="route('sale.attribute.add', $sale)">Add Product</x-link>
         </div>
     </x-slot>
 
@@ -23,10 +23,10 @@
                         {{ $sale->client }}
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                        {{ $sale->products->sum('price') }}
+                        {{ $sale->attributes->sum('price') }}
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                        {{ $sale->products->count() }}
+                        {{ $sale->attributes->count() }}
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
                         {{ $sale->created_at->format('m-d') }}
@@ -68,23 +68,23 @@
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
 
                     </td> --}}
-                @forelse ($sale->products as $product)
+                @forelse ($sale->attributes as $attribute)
                     <tr class="bg-white border-b">
                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                            {{ $product->category }}
+                            {{ $attribute->product->category }}
                         </td>
                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                            {{ $product->brand }}
+                            {{ $attribute->product->brand }}
                         </td>
                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                            {{ $product->pivot->attribute_size }}
+                            {{ $attribute->size }}
                         </td>
                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                            {{ $product->price }}
+                            {{ $attribute->product->price }}
                         </td>
                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
                             <form style="display: inline"
-                                action="{{ route('sale.product.remove', ['sale' => $sale, 'attribute' => $product->pivot->attribute_id]) }}"
+                                action="{{ route('sale.attribute.remove', ['sale' => $sale, 'attribute' => $attribute]) }}"
                                 method="post">
                                 @method('delete')
                                 @csrf

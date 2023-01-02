@@ -17,8 +17,20 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales = Sale::with('products')->get();
+        $sales = Sale::with('attributes.product')->get();
+        $collection = collect(
+            [
+                'product' => [
+                    ['price' => 20],
+                    ['price' => 20],
+                    ['price' => 20],
+                ]
+            ]
+        );
+        // dd($collection->sum(function($){
 
+        // }));
+        // dd($sales);
         return view('sale.index', compact('sales'));
     }
 
@@ -53,8 +65,7 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        $sale->load('products');
-
+        $sale->load(['attributes.product']);
         return view('sale.show', compact('sale'));
     }
 

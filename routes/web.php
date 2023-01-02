@@ -57,10 +57,10 @@ Route::middleware(['auth', 'initialized'])->group(function () {
 
     Route::resource('sale', SaleController::class);
 
-    Route::get('/sale/{sale}/product', [SaleProductController::class, 'index'])->name('sale.product.add');
-    Route::post('/sale/{sale}/attribute/{attribute}', [SaleProductController::class, 'store'])->name('sale.product.store');
-    Route::post('/sale/{sale}/product', [SaleProductController::class, 'search'])->name('sale.product.search');
-    Route::delete('/sale/{sale}/attribute/{attribute}', [SaleProductController::class, 'destroy'])->name('sale.product.remove');
+    Route::get('/sale/{sale}/attribute', [SaleProductController::class, 'index'])->name('sale.attribute.add');
+    Route::post('/sale/{sale}/attribute/{attribute}', [SaleProductController::class, 'store'])->name('sale.attribute.store');
+    Route::post('/sale/{sale}/attribute', [SaleProductController::class, 'search'])->name('sale.attribute.search');
+    Route::delete('/sale/{sale}/attribute/{attribute}', [SaleProductController::class, 'destroy'])->name('sale.attribute.remove');
 });
 
 

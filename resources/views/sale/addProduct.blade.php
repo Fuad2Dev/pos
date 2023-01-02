@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <form action="{{ route('sale.product.search', $sale) }}" method="post">
+        <form action="{{ route('sale.attribute.search', $sale) }}" method="post">
             @csrf
 
             <div class="flex justify-between space-x-4 items-end">
@@ -57,7 +57,7 @@
                             </td>
                             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
                                 <form style="display: inline"
-                                    action="{{ route('sale.product.store', compact('sale', 'attribute')) }}" method="post">
+                                    action="{{ route('sale.attribute.store', compact('sale', 'attribute')) }}" method="post">
                                     @csrf
                                     <input type="submit" class="text-indigo-500 text-lg" value="add">
                                 </form>

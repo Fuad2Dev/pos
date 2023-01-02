@@ -4,7 +4,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <p>Update Product</p>
-            <x-link class="bg-red-500" :route="route('product.index')">cancel</x-link>
+            <x-link class="text-white bg-red-500" :route="route('product.index')">cancel</x-link>
         </div>
     </x-slot>
 

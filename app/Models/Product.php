@@ -16,11 +16,11 @@ class Product extends Model
     public function attributes()
     {
         return $this->hasMany(Attribute::class)
-            ->where('status', 'available');
+            ->whereNull('sale_id');
     }
 
-    public function sales()
-    {
-        return $this->belongsToMany(Sale::class)->withPivot('attribute_id');
-    }
+    // public function sales()
+    // {
+    //     return $this->belongsToMany(Sale::class)->withPivot('attribute_id');
+    // }
 }

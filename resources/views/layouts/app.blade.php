@@ -8,11 +8,15 @@
 
     <title>{{ config('app.name', 'POS') }}</title>
 
+
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}">
+    <script defer src="{{ asset('build/assets/app.js') }}"></script>
+
 </head>
 
 <body class="font-sans antialiased">

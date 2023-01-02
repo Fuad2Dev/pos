@@ -51,9 +51,7 @@ class SaleProductController extends Controller
      */
     public function store(Request $request, Sale $sale, Attribute $attribute)
     {
-        // dd($attribute->product);
-        $attribute->product->sales()->attach($sale, ['attribute_id' => $attribute->id]);
-        $attribute->update(['status' => 'in sale']);
+        $attribute->update(['sale_id' => $sale->id]);
 
         return redirect()->route('sale.show', $sale);
     }
@@ -100,11 +98,9 @@ class SaleProductController extends Controller
      */
     public function destroy(Sale $sale, Attribute $attribute)
     {
-        // TODO: modify relation to sale <=> attribute for easier querying
+        // TODO: #1 modify relation to sale <=> attribute for easier querying
         // $sale->attributes()->detach($attribute->id);
-        $attribute->product->sales()->where('sale_id', $sale->id)->where('attribute_id', $attribute->id)->detach();
-
-        $attribute->update(['status' => 'available']);
+        $attribute->update(['sale_id' => null]);
 
         return redirect()->route('sale.show', $sale);
     }

@@ -34,10 +34,10 @@
                             {{ $sale->client }}
                         </td>
                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                            {{ $sale->products->sum('price') }}
+                            {{ $sale->attributes->sum('price') }}
                         </td>
                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                            {{ $sale->products->count() }}
+                            {{ $sale->attributes->count() }}
                         </td>
                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
                             {{ $sale->created_at->format('m-d') }}

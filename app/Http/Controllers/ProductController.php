@@ -48,7 +48,8 @@ class ProductController extends Controller
         // TODO: add code to product
         $product = Product::firstOrCreate($request->safe()->only(['category', 'brand', 'price']));
         // TODO: product attributes should be made optional
-        $product->attributes()->create($request->safe()->only(['color', 'size', 'description']));
+        // $product->attributes()->create($request->safe()->only(['color', 'size', 'description']));
+        $product->attributes()->create($request->all());
 
         return redirect()->route('product.index');
     }
