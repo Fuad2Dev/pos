@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\TemplateExport;
 use App\Http\Requests\ProductRequest;
 use App\Imports\ProductsImport;
+use App\Models\Attribute;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,8 +20,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-
+        // dd(Attribute::groupBy('product_id')->get());
+        // Retrieve only products with at least one available attribute
+        $products = Product::has('attributes')->withCount('attributes')->get();
         return view('product.index', compact('products'));
     }
 
@@ -42,7 +44,11 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create($request->validated());
+        // TODO: description should be required if all other attributes are null
+        // TODO: add code to product
+        $product = Product::firstOrCreate($request->safe()->only(['category', 'brand', 'price']));
+        // TODO: product attributes should be made optional
+        $product->attributes()->create($request->safe()->only(['color', 'size', 'description']));
 
         return redirect()->route('product.index');
     }
@@ -55,7 +61,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('product.show', compact('product'));
     }
 
     /**

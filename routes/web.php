@@ -1,10 +1,15 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\initializerController;
+use App\Models\Attribute;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\initializerController;
+use App\Http\Controllers\SaleProductController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +47,20 @@ Route::middleware(['auth', 'initialized'])->group(function () {
     Route::post('product/import', [ProductController::class, 'storeImport'])->name('product.store.import');
     Route::get('product/import/template', [ProductController::class, 'template'])->name('product.import.template');
     Route::resource('product', ProductController::class);
+
+    Route::delete('product/{product}/attribute/{attribute}', [AttributeController::class, 'destroy'])->name('product.attribute.destroy')->scopeBindings();
+    Route::get('product/{product}/attribute/{attribute}/edit', [AttributeController::class, 'edit'])->name('product.attribute.edit')->scopeBindings();
+    Route::post('product/{product}/attribute/{attribute}', [AttributeController::class, 'update'])->name('product.attribute.update')->scopeBindings();
+    Route::get('product/{product}/attribute/create', [AttributeController::class, 'create'])->name('product.attribute.create')->scopeBindings();
+    Route::post('product/{product}/attribute', [AttributeController::class, 'store'])->name('product.attribute.store')->scopeBindings();
+    // Route::resource('product.attribute', Attribute::class);
+
+    Route::resource('sale', SaleController::class);
+
+    Route::get('/sale/{sale}/product', [SaleProductController::class, 'index'])->name('sale.product.add');
+    Route::post('/sale/{sale}/attribute/{attribute}', [SaleProductController::class, 'store'])->name('sale.product.store');
+    Route::post('/sale/{sale}/product', [SaleProductController::class, 'search'])->name('sale.product.search');
+    Route::delete('/sale/{sale}/attribute/{attribute}', [SaleProductController::class, 'destroy'])->name('sale.product.remove');
 });
 
 

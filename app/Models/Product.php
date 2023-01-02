@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Sale;
+use App\Models\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -11,8 +13,14 @@ class Product extends Model
 
     protected $guarded = [];
 
-    // public function count()
-    // {
+    public function attributes()
+    {
+        return $this->hasMany(Attribute::class)
+            ->where('status', 'available');
+    }
 
-    // }
+    public function sales()
+    {
+        return $this->belongsToMany(Sale::class)->withPivot('attribute_id');
+    }
 }

@@ -4,7 +4,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <p>Import Products</p>
-            <x-link route='product.import.template'>Download Template File</x-link>
+            <x-link :route="route('product.import.template')">Download Template File</x-link>
         </div>
     </x-slot>
 
