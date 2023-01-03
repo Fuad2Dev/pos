@@ -8,7 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\initializerController;
-use App\Http\Controllers\SaleProductController;
+use App\Http\Controllers\AttributeSaleController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -48,19 +48,19 @@ Route::middleware(['auth', 'initialized'])->group(function () {
     Route::get('product/import/template', [ProductController::class, 'template'])->name('product.import.template');
     Route::resource('product', ProductController::class);
 
-    Route::delete('product/{product}/attribute/{attribute}', [AttributeController::class, 'destroy'])->name('product.attribute.destroy')->scopeBindings();
-    Route::get('product/{product}/attribute/{attribute}/edit', [AttributeController::class, 'edit'])->name('product.attribute.edit')->scopeBindings();
-    Route::post('product/{product}/attribute/{attribute}', [AttributeController::class, 'update'])->name('product.attribute.update')->scopeBindings();
-    Route::get('product/{product}/attribute/create', [AttributeController::class, 'create'])->name('product.attribute.create')->scopeBindings();
-    Route::post('product/{product}/attribute', [AttributeController::class, 'store'])->name('product.attribute.store')->scopeBindings();
-    // Route::resource('product.attribute', Attribute::class);
+    Route::delete('product/{product}/attribute/{attribute}', [AttributeController::class, 'destroy'])->name('sale.attribute.destroy')->scopeBindings();
+    Route::get('product/{product}/attribute/{attribute}/edit', [AttributeController::class, 'edit'])->name('sale.attribute.edit')->scopeBindings();
+    Route::post('product/{product}/attribute/{attribute}', [AttributeController::class, 'update'])->name('sale.attribute.update')->scopeBindings();
+    Route::get('product/{product}/attribute/create', [AttributeController::class, 'create'])->name('sale.attribute.create')->scopeBindings();
+    Route::post('product/{product}/attribute', [AttributeController::class, 'store'])->name('sale.attribute.store')->scopeBindings();
+    // Route::resource('sale.attribute', Attribute::class);
 
     Route::resource('sale', SaleController::class);
 
-    Route::get('/sale/{sale}/attribute', [SaleProductController::class, 'index'])->name('sale.attribute.add');
-    Route::post('/sale/{sale}/attribute/{attribute}', [SaleProductController::class, 'store'])->name('sale.attribute.store');
-    Route::post('/sale/{sale}/attribute', [SaleProductController::class, 'search'])->name('sale.attribute.search');
-    Route::delete('/sale/{sale}/attribute/{attribute}', [SaleProductController::class, 'destroy'])->name('sale.attribute.remove');
+    Route::get('/sale/{sale}/attribute', [AttributeSaleController::class, 'index'])->name('sale.attribute.add');
+    Route::post('/sale/{sale}/attribute/{attribute}', [AttributeSaleController::class, 'store'])->name('sale.attribute.store');
+    Route::post('/sale/{sale}/attribute', [AttributeSaleController::class, 'search'])->name('sale.attribute.search');
+    Route::delete('/sale/{sale}/attribute/{attribute}', [AttributeSaleController::class, 'destroy'])->name('sale.attribute.remove');
 });
 
 
