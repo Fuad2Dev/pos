@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
 
-class AttributeController extends Controller
+class ProductAttributeController extends Controller
 {
     /**
      * Display a listing of the resource.

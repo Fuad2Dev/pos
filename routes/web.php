@@ -6,8 +6,7 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AttributeController;
-use App\Http\Controllers\initializerController;
+use App\Http\Controllers\ProductAttributeController;
 use App\Http\Controllers\AttributeSaleController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -23,59 +22,37 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 */
 
 
+Route::redirect('/', '/product');
 
-Route::middleware(['initialized'])->group(function () {
-    Route::get('/', [AuthenticatedSessionController::class, 'create']);
-
-    // TODO: should have guest route
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
-        ->name('login');
-
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
-});
-
-Route::middleware(['uninitialized'])->name('initialize')->group(function () {
-    Route::get('/initialize', function () {
-        return view('auth.initialize');
-    });
-
-    Route::post('/initialize', initializerController::class);
-});
 
 Route::middleware(['auth', 'initialized'])->group(function () {
+    // product resource
     Route::get('product/import', [ProductController::class, 'createImport'])->name('product.create.import');
     Route::post('product/import', [ProductController::class, 'storeImport'])->name('product.store.import');
     Route::get('product/import/template', [ProductController::class, 'template'])->name('product.import.template');
     Route::resource('product', ProductController::class);
 
-    Route::delete('product/{product}/attribute/{attribute}', [AttributeController::class, 'destroy'])->name('sale.attribute.destroy')->scopeBindings();
-    Route::get('product/{product}/attribute/{attribute}/edit', [AttributeController::class, 'edit'])->name('sale.attribute.edit')->scopeBindings();
-    Route::post('product/{product}/attribute/{attribute}', [AttributeController::class, 'update'])->name('sale.attribute.update')->scopeBindings();
-    Route::get('product/{product}/attribute/create', [AttributeController::class, 'create'])->name('sale.attribute.create')->scopeBindings();
-    Route::post('product/{product}/attribute', [AttributeController::class, 'store'])->name('sale.attribute.store')->scopeBindings();
-    // Route::resource('sale.attribute', Attribute::class);
+    // product attribute resource
+    Route::delete('product/{product}/attribute/{attribute}', [ProductAttributeController::class, 'destroy'])->name('product.attribute.destroy')->scopeBindings();
+    Route::get('product/{product}/attribute/{attribute}/edit', [ProductAttributeController::class, 'edit'])->name('product.attribute.edit')->scopeBindings();
+    Route::post('product/{product}/attribute/{attribute}', [ProductAttributeController::class, 'update'])->name('product.attribute.update')->scopeBindings();
+    Route::get('product/{product}/attribute/create', [ProductAttributeController::class, 'create'])->name('product.attribute.create')->scopeBindings();
+    Route::post('product/{product}/attribute', [ProductAttributeController::class, 'store'])->name('product.attribute.store')->scopeBindings();
 
+    // sale resource
     Route::resource('sale', SaleController::class);
 
+    // sale attribute resource
     Route::get('/sale/{sale}/attribute', [AttributeSaleController::class, 'index'])->name('sale.attribute.add');
     Route::post('/sale/{sale}/attribute/{attribute}', [AttributeSaleController::class, 'store'])->name('sale.attribute.store');
     Route::post('/sale/{sale}/attribute', [AttributeSaleController::class, 'search'])->name('sale.attribute.search');
     Route::delete('/sale/{sale}/attribute/{attribute}', [AttributeSaleController::class, 'destroy'])->name('sale.attribute.remove');
+
+    // profile resource
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-
-
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__ . '/auth.php';

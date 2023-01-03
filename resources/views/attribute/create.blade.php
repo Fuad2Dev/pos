@@ -10,7 +10,7 @@
 
     <div class="py-12">
 
-        <form method="POST" action="{{ route('sale.attribute.store', $product) }}" class="w-2/3 mx-auto space-y-5">
+        <form method="POST" action="{{ route('product.attribute.store', $product) }}" class="w-2/3 mx-auto space-y-5">
             @csrf
 
             <div class="flex justify-between space-x-4">

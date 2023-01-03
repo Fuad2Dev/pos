@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\InitializeRequest;
 
-class initializerController extends Controller
+class InitializerController extends Controller
 {
     public function __invoke(InitializeRequest $request)
     {

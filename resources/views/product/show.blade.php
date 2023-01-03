@@ -18,7 +18,7 @@
             </div>
             <div class="flex space-x-4">
                 <a class="py-2 px-4 bg-indigo-500 text-white rounded"
-                    href="{{ route('sale.attribute.create', compact('product')) }}">add</a>
+                    href="{{ route('product.attribute.create', compact('product')) }}">add</a>
 
             </div>
         </div>
@@ -26,6 +26,7 @@
 
 
     <div class="mx-7 py-4">
+        {{-- TODO: add product edit button  --}}
         <table class="w-full border text-center">
             <thead class="border-b">
                 <tr class="bg-gray-800">
@@ -82,11 +83,11 @@
                             {{ $attribute->description }}
                         </td>
                         <td>
-                            <a href="{{ route('sale.attribute.edit', compact('product', 'attribute')) }}"
+                            <a href="{{ route('product.attribute.edit', compact('product', 'attribute')) }}"
                                 class="text-indigo-500 text-lg">edit</a>
 
                             <form style="display: inline"
-                                action="{{ route('sale.attribute.destroy', compact('product', 'attribute')) }}"
+                                action="{{ route('product.attribute.destroy', compact('product', 'attribute')) }}"
                                 method="post">
                                 @method('delete')
                                 @csrf
