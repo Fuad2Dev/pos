@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Product;
 use App\Models\Attribute;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -30,5 +31,41 @@ class Sale extends Model
         return $this->hasMany(Attribute::class)
             ->join('products', 'attributes.product_id', '=', 'products.id')
             ->select('products.price', 'attributes.*');
+    }
+
+
+    public function scopeToday()
+    {
+        return $this->whereDate('created_at', Carbon::today());
+    }
+
+    public function scopeYesterday()
+    {
+        return $this->whereDate('created_at', Carbon::yesterday());
+    }
+
+    public function scopeThisWeek()
+    {
+        return $this->whereBetween('created_at', [Carbon::today()->startOfWeek(), Carbon::today()->endOfWeek()]);
+    }
+
+    public function scopeLastWeek()
+    {
+        return $this->whereBetween('created_at', [Carbon::today()->startOfWeek()->subWeek(), Carbon::today()->startOfWeek()]);
+    }
+
+    public function scopeThisMonth()
+    {
+        return $this->whereBetween('created_at', [Carbon::today()->startOfMonth(), Carbon::today()->endOfMonth()]);
+    }
+
+    public function scopeLastMonth()
+    {
+        return $this->whereBetween('created_at', [Carbon::today()->startOfMonth()->subMonth(), Carbon::today()->startOfMonth()]);
+    }
+
+    public function scopeThisYear()
+    {
+        return $this->whereBetween('created_at', [Carbon::today()->startOfYear(), Carbon::today()->endOfYear()]);
     }
 }
