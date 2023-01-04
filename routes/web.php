@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductAttributeController;
 use App\Http\Controllers\AttributeSaleController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,13 @@ Route::middleware(['auth', 'initialized'])->group(function () {
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // dashboard
+    Route::name('dashboard.')->prefix('/dashboard')->group(function () {
+        Route::get('/summary', [DashboardController::class, 'summary'])->name('summary');
+        Route::get('/stock', [DashboardController::class, 'stock'])->name('stock');
+        Route::get('/chart', [DashboardController::class, 'chart'])->name('chart');
+    });
 });
 
 
