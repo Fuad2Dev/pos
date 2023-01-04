@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
     public function stock()
     {
-        dd('stock');
+        return view('dashboard.stock');
     }
 
     public function chart()
