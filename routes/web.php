@@ -58,6 +58,7 @@ Route::middleware(['auth', 'initialized'])->group(function () {
     Route::name('dashboard.')->prefix('/dashboard')->group(function () {
         Route::get('/summary', [DashboardController::class, 'summary'])->name('summary');
         Route::get('/stock', [DashboardController::class, 'stock'])->name('stock');
+        Route::post('/stock', [DashboardController::class, 'stock'])->name('stock');
         Route::get('/chart', [DashboardController::class, 'chart'])->name('chart');
     });
 });
