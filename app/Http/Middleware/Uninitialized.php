@@ -17,9 +17,9 @@ class Uninitialized
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = User::first();
+        $user = User::where('isAdmin', true)->get();
 
-        if ($user == null || !$user->isAdmin)
+        if (!$user->count())
             return $next($request);
 
         return redirect('/');
