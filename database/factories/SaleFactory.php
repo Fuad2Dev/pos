@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +18,7 @@ class SaleFactory extends Factory
     public function definition()
     {
         return [
+            'user_id' => User::all()->where('isAdmin', false)->random()->id,
             'client' => $this->faker->name(),
             'note' => $this->faker->sentence(),
         ];
