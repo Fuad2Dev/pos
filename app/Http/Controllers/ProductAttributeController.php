@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ProductAttributeController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Attribute::class, 'attribute');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +30,6 @@ class ProductAttributeController extends Controller
      */
     public function create(Product $product)
     {
-        // dd($product);
         return view('attribute.create', compact('product'));
     }
 

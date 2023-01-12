@@ -63,7 +63,7 @@
         <table class="w-full border text-center">
             <thead class="border-b">
                 <tr class="bg-gray-800">
-                    @foreach (['Color', 'Size', 'Description', ''] as $item)
+                    @foreach (['Color', 'Size', 'Description'] as $item)
                         <th scope="col" class="text-white font-medium px-2 py-1 border-r text-lg">
                             {{ $item }}
                         </th>
@@ -82,18 +82,23 @@
                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
                             {{ $attribute->description }}
                         </td>
-                        <td>
-                            <a href="{{ route('product.attribute.edit', compact('product', 'attribute')) }}"
-                                class="text-indigo-500 text-lg">edit</a>
-
-                            <form style="display: inline"
-                                action="{{ route('product.attribute.destroy', compact('product', 'attribute')) }}"
-                                method="post">
-                                @method('delete')
-                                @csrf
-                                <input type="submit" class="text-red-500 text-lg" value="delete">
-                            </form>
-                        </td>
+                        @canany(['edit', 'delete'], $attribute)
+                            <td>
+                                @can('edit', $attribute)
+                                    <a href="{{ route('product.attribute.edit', compact('product', 'attribute')) }}"
+                                        class="text-indigo-500 text-lg">edit</a>
+                                @endcan
+                                @can('delete', $attribute)
+                                    <form style="display: inline"
+                                        action="{{ route('product.attribute.destroy', compact('product', 'attribute')) }}"
+                                        method="post">
+                                        @method('delete')
+                                        @csrf
+                                        <input type="submit" class="text-red-500 text-lg" value="delete">
+                                    </form>
+                                @endcan
+                            </td>
+                        @endcanany
                     </tr>
                 @endforeach
 
