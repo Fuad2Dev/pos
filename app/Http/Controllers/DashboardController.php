@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
+use App\Models\User;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
 {
+
+
+
     public function summary()
     {
 
@@ -32,10 +37,5 @@ class DashboardController extends Controller
         $products = Product::has('attributes', '=', $stock)->get();
         // dd($products);
         return view('dashboard.stock', compact('products'));
-    }
-
-    public function chart()
-    {
-        dd('chart');
     }
 }

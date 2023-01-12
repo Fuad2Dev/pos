@@ -14,19 +14,19 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index') ||
-                        request()->routeIs('product.create') ||
-                        request()->routeIs('product.edit') ||
-                        request()->routeIs('product.create.import')">
+                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
                         {{ __('Products') }}
                     </x-nav-link>
                     <x-nav-link :href="route('sale.index')" :active="request()->routeIs('sale.index')">
                         {{ __('Sales') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard.summary')"
-                    :active="request()->routeIs('dashboard.summary') || request()->routeIs('dashboard.stock') || request()->routeIs('dashboard.chart')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    @can('view-dashboard')
+                        <x-nav-link :href="route('dashboard.summary')" :active="request()->routeIs('dashboard.summary') ||
+                            request()->routeIs('dashboard.stock') ||
+                            request()->routeIs('dashboard.user.index')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
