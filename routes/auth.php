@@ -35,7 +35,7 @@ Route::middleware('guest')->group(function () {
     //     ->name('password.store');
 
 
-    Route::middleware(['initialized'])->group(function () {
+    Route::middleware(['initialized', 'guest'])->group(function () {
         // login after initialization
         Route::get('login', [AuthenticatedSessionController::class, 'create'])
             ->name('login');
@@ -43,7 +43,7 @@ Route::middleware('guest')->group(function () {
         Route::post('login', [AuthenticatedSessionController::class, 'store']);
     });
 
-    Route::middleware(['uninitialized'])->name('initialize')->group(function () {
+    Route::middleware(['uninitialized', 'guest'])->name('initialize')->group(function () {
         // initialize app with admin account and store details
         Route::get('/initialize', function () {
             return view('auth.initialize');
