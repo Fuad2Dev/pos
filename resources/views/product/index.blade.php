@@ -53,7 +53,9 @@
                             {{ $product->attributes_count }}
                         </td>
                         <td class="space-x-5">
-                            <a href="{{ route('product.edit', $product) }}" class="text-indigo-500 text-lg">edit</a>
+                            @can('edit', $product)
+                                <a href="{{ route('product.edit', $product) }}" class="text-indigo-500 text-lg">edit</a>
+                            @endcan
                             <a href="{{ route('product.show', $product) }}" class="text-indigo-500 text-lg">view</a>
                             {{-- TODO: warn before delete --}}
                             {{-- remove delete function and rather implement a delete all in show --}}
