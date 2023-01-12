@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Sale;
 use App\Models\Product;
 use App\Models\Attribute;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class ProductSeeder extends Seeder
+class SaleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +17,13 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::factory(4)->has(Attribute::factory()->count(3))->create();
+        Sale::factory()
+            ->count(3)
+            ->has(
+                Attribute::factory()
+                    ->count(2)
+                    ->has(Product::factory())
+            )
+            ->create();
     }
 }
