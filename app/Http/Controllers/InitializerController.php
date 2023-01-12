@@ -12,11 +12,11 @@ class InitializerController extends Controller
 {
     public function __invoke(InitializeRequest $request)
     {
-        $config = Config::make($request->safe()->only('name'));
+        $config = Config::make($request->safe()->only('shop_name'));
         $config->logo = $request->file('logo')->store('logo', 'public');
         $config->save();
 
-        $admin = User::make($request->safe()->only(['email']));
+        $admin = User::make($request->safe()->only(['email', 'name']));
         $admin->password = Hash::make($request->password);
         $admin->isAdmin = true;
         $admin->save();

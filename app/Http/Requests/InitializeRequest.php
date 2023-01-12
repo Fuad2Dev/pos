@@ -29,6 +29,7 @@ class InitializeRequest extends FormRequest
     public function rules()
     {
         return [
+            'shop_name' => ['required', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
             'logo' => [
                 File::image()

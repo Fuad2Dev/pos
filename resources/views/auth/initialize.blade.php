@@ -6,11 +6,19 @@
     <form method="POST" action="{{ route('initialize') }}" enctype="multipart/form-data">
         @csrf
 
-        <!-- name -->
+        <!-- shop name -->
         <div>
-            <x-input-label for="name" :value="__('Shop\'s Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
-                autofocus />
+            <x-input-label for="shop_name" :value="__('Shop\'s Name')" />
+            <x-text-input id="shop_name" class="block mt-1 w-full" type="text" name="shop_name" :value="old('shop_name')"
+                required autofocus />
+            <x-input-error :messages="$errors->get('shop_name')" class="mt-2" />
+        </div>
+
+        <!-- name -->
+        <div class="mt-4">
+            <x-input-label for="name" :value="__('Admin\'s Name')" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
+                required autofocus />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 

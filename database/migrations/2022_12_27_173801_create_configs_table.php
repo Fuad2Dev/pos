@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('shop_name');
             $table->string('logo')->nullable();
             $table->timestamps();
         });
